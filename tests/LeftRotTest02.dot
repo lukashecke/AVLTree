@@ -1,22 +1,22 @@
 digraph BST {
     node [fontname="Arial"];
+    "15"-> "10";
     "10"-> "5";
-    "5"-> "4";
-    "4"-> "3";
     null0 [shape=point];
-    "3"-> null0;
+    "5"-> null0;
     null1 [shape=point];
-    "3"-> null1;
+    "5"-> null1;
+    "10"-> "14";
     null2 [shape=point];
-    "4"-> null2;
-    "5"-> "6";
+    "14"-> null2;
     null3 [shape=point];
-    "6"-> null3;
+    "14"-> null3;
+    "15"-> "16";
     null4 [shape=point];
-    "6"-> null4;
-    "10"-> "12";
+    "16"-> null4;
+    "16"-> "17";
     null5 [shape=point];
-    "12"-> null5;
+    "17"-> null5;
     null6 [shape=point];
-    "12"-> null6;
+    "17"-> null6;
 }
