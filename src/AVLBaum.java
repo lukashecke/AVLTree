@@ -76,8 +76,7 @@ public class AVLBaum<T extends Comparable<T>> {
 	}
 
 	private void linksRotation(AVLNode node) {
-		// Passen Sie zuerst die Referenz des linken bzw. des rechten Nachfolgers im Elternknoten von node an. Beachten Sie, falls node null ist.
-		if (node.parentNode == null) { // node ist Wurzel
+		if(node.parentNode == null) { // node ist Wurzel
 			root = node.rightNode;
 		} else {
 			int compare = node.element.compareTo(node.parentNode.element);
@@ -87,16 +86,16 @@ public class AVLBaum<T extends Comparable<T>> {
 				node.parentNode.rightNode = node.rightNode;
 			}
 		}
-		// Ändern Sie die Referenz von parentNode in node und im rechten Nachfolger von node.
-		node.rightNode.parentNode=node.parentNode;
-		node.parentNode=node.rightNode;
-		// Tauschen Sie die Referenz des rechten Nachfolgers von node mit dem linken Teilbaum vom rechten Nachfolger von node aus und umgekehrt.
+		node.rightNode.parentNode = node.parentNode;
+		node.parentNode = node.rightNode;
 		AVLNode toShift = node.rightNode.leftNode;
 		node.rightNode.leftNode = node;
 		node.rightNode = toShift;
-		// Aktualisieren Sie die Höhe des rechten Teilbaums von node und die Höhe des linken Teilbaums des neuen Elternknoten von node. Verwenden Sie dabei die Hilfsmethode getHoehe.
+		if(toShift != null) {
+			toShift.parentNode = node.parentNode; //Referenz von parentNode in toShift ändern
+		}
 		node.hoeheRechterTeilbaum = getHoehe(toShift);
-		node.parentNode.hoeheLinkerTeilbaum=getHoehe(node);
+		node.parentNode.hoeheLinkerTeilbaum = getHoehe(node);
 	}
 
 	private int getHoehe(AVLNode node) {
