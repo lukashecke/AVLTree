@@ -67,12 +67,40 @@ public class AVLBaum<T extends Comparable<T>> {
 	}
 
 	private void linksRechtsRotation(AVLNode node) {
+		linksRotation(node.leftNode);
+		rechtsRotation(node);
 	}
 
 	private void rechtsLinksRotation(AVLNode node) {
+		rechtsRotation(node.rightNode);
+		linksRotation(node);
 	}
 
 	private void rechtsRotation(AVLNode node) {
+		if(node.parentNode == null) { // node ist Wurzel
+			root = node.leftNode;
+		}
+		else {
+			int compare = node.element.compareTo(node.parentNode.element);
+			if(compare < 0) { // Node ist links
+				node.parentNode.leftNode = node.leftNode;
+			}
+			else { //Node ist rechts, = 0 geht nicht
+				node.parentNode.rightNode = node.leftNode;
+			}
+		}
+
+		node.leftNode.parentNode = node.parentNode; //ParentNodes anpassen
+		node.parentNode = node.leftNode;
+
+		AVLNode toShift = node.leftNode.rightNode;
+		node.leftNode.rightNode = node;
+		node.leftNode = toShift;
+		if(toShift != null) {
+			toShift.parentNode = node.parentNode; //Referenz von parentNode in toShift ändern
+		}
+		node.hoeheLinkerTeilbaum = getHoehe(toShift);
+		node.parentNode.hoeheRechterTeilbaum = getHoehe(node);
 	}
 
 	private void linksRotation(AVLNode node) {
